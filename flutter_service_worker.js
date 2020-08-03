@@ -3,10 +3,10 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
-  ".git/COMMIT_EDITMSG": "1fb8a2b86c3d04bea543d8ee84e7a135",
+  ".git/COMMIT_EDITMSG": "9ecc6d07b2986ac19d62d93fc04aa726",
 ".git/config": "87a422633c0393c29af4ee982ed22e39",
 ".git/description": "a0a7c3fff21f2aea3cfa1d0316dd816c",
-".git/FETCH_HEAD": "6a4a97ca6a871e85294bb300d415ebfa",
+".git/FETCH_HEAD": "41d5e4eb68a7fe86b821a37035c3c2fa",
 ".git/HEAD": "4cf2d64e44205fe628ddd534e1151b58",
 ".git/hooks/applypatch-msg.sample": "ce562e08d8098926a3862fc6e7905199",
 ".git/hooks/commit-msg.sample": "579a3c1e12a1e74a98169175fb913012",
@@ -20,28 +20,32 @@ const RESOURCES = {
 ".git/hooks/pre-receive.sample": "2ad18ec82c20af7b5926ed9cea6aeedd",
 ".git/hooks/prepare-commit-msg.sample": "2b5c047bdb474555e1787db32b2d2fc5",
 ".git/hooks/update.sample": "7bf1fcc5f411e5ad68c59b68661660ed",
-".git/index": "8e11ff6e30e4864b0d5f3f2300c6df2a",
+".git/index": "4015ea4be0c6bf77e0989c374e44d729",
 ".git/info/exclude": "036208b4a1ab4a235d75c181e685e5a3",
-".git/logs/HEAD": "ca88b63f16ee1d75954b375e547b6050",
-".git/logs/refs/heads/master": "ca88b63f16ee1d75954b375e547b6050",
-".git/logs/refs/remotes/origin/master": "08c3825b19739369ba2dea389dd49573",
+".git/logs/HEAD": "d47e5ff93ed96899ef1b8954934642e6",
+".git/logs/refs/heads/master": "d47e5ff93ed96899ef1b8954934642e6",
+".git/logs/refs/remotes/origin/master": "54b91aedd26a8c1d533f5abacb26de23",
 ".git/objects/03/eaddffb9c0e55fb7b5f9b378d9134d8d75dd37": "87850ce0a3dd72f458581004b58ac0d6",
 ".git/objects/0f/816fb5068fb5d0dc1623718a94d7a34c5edfe4": "48392ce692d6328aef69a753fa305233",
 ".git/objects/13/cd698afa86edb334bec59991cd113491a5a4f1": "01d69635e49925db17e7c32e26fc974f",
 ".git/objects/15/9b15011009e1e691b0761e5627dc3f3aa452ad": "822c0ced8e90203ed87ff7e0082d7945",
 ".git/objects/20/5bb5db271c6d8de8399864c7bb9b917f638893": "c993b22f115d7f3ae6d5b7b212806539",
+".git/objects/24/b0335f751bb76a6b0b3702b63c17c0166e8196": "4b44b63fc813c169f633a15dbd3f132c",
 ".git/objects/2f/93d8725108a206848eb34d4d8cdaa5dfd80793": "11a52126e4ea2783b64baa482fb36378",
 ".git/objects/34/8d24e22feb6b62daba8bfbf98530d020e5fa29": "be63a7a25d5e7489052bb361e716188a",
 ".git/objects/41/6695b573fdd36326168db830d62e1c929b4957": "717bbc37279d588ea9000d273a73d9f8",
+".git/objects/46/6a6c51a241b350ec2dac18aa3654e6fcdc9637": "b8e9c598789c0f27b1e6ca9a10471301",
 ".git/objects/49/2efb8c7ce68533e07b94a4a0bf257e104c0b23": "8b5874ece36aa8ccaaedf3e147ea37a5",
 ".git/objects/52/69508ef1e368625e86d531b417136f0803e21c": "ba8f33e1f92ab88679d6a41909ad226a",
 ".git/objects/5a/29d907f5f17137b81ac3024f5ad710c816dc3d": "abfb5646ea94266047f09ac2ab01d0a0",
 ".git/objects/71/3ff961fd1d128f229b4a09e72b4e18bbc1eb68": "2c22410c937136207069657458ea62f8",
 ".git/objects/81/0337fcab9374ea7916511a5b9b59c1fe38c5fd": "cc99e87ef5a5ad26f76eb93e555d98fa",
 ".git/objects/88/cfd48dff1169879ba46840804b412fe02fefd6": "e42aaae6a4cbfbc9f6326f1fa9e3380c",
+".git/objects/8a/937e6f042f75c49f60d43b860a1ac5d7cd31b1": "0349f2305f8c1cff27631785c4af6e6d",
 ".git/objects/8a/aa46ac1ae21512746f852a42ba87e4165dfdd1": "1d8820d345e38b30de033aa4b5a23e7b",
 ".git/objects/91/b024ddaa0cd7430a02b48e59a2786cabf7367e": "c3b3b78b5e98df18ce10deb57c84ec34",
 ".git/objects/95/19e1d75e8e60fc461d42dceff7162076484747": "87166efde232eca9c4f1ad4118b6d046",
+".git/objects/9a/128edd4ad8102ce7db0b9d4c00e46d25e654d3": "82c2eb4155ee6427cfabd2ac2340e310",
 ".git/objects/a7/719fd239eca370184153e970410e7117e463c1": "72aafc85d901cbf42d5f59d9169475b9",
 ".git/objects/a8/f0d4c8837132c8d892d7b6b64c7d7bfc806c6e": "35406fa57b933707e90758386ca1a109",
 ".git/objects/ac/97ea79147da22c11bc5f4f47defb29c25684c9": "063c717890bc9e9c5a942ea4eaa1c38f",
@@ -53,22 +57,23 @@ const RESOURCES = {
 ".git/objects/d0/a5912947ceb27505c2661b95b18352688a4b73": "5c7526ce1c2c2423ec7c6459cc90b530",
 ".git/objects/d2/4ceb96804c5ff7b8344b9aff4c55d9c40c57c0": "29a21355f6d515288e58f94449b8f023",
 ".git/objects/dd/56eabbf298449db91bfa8644c6fbb20b8e6dda": "3fa6bb294070401dbba0b01792b84ce0",
+".git/objects/ea/8da6af0dc3f9ad41db185b2af7477ac1363d18": "574d42571e3285b45b8bf0272baabafb",
 ".git/objects/f1/fc7a88cd9b698840b8360ad6e97204d4ace1c6": "e6c04de880cf4642d01f62d166ae9ca0",
 ".git/objects/fc/565ec170b7fd55cbf422b8188a6f64eddda60e": "c1d5b622c8e63d1865785872c9d4a21d",
 ".git/ORIG_HEAD": "12b31d7185c3084eee548610904fe80c",
-".git/refs/heads/master": "feb11205e11d11b5a167db9a0c0fe879",
-".git/refs/remotes/origin/master": "feb11205e11d11b5a167db9a0c0fe879",
+".git/refs/heads/master": "3553709e25555e51dab527c3cf9c47db",
+".git/refs/remotes/origin/master": "3553709e25555e51dab527c3cf9c47db",
 "assets/AssetManifest.json": "2efbb41d7877d10aac9d091f58ccd7b9",
-"assets/FontManifest.json": "01700ba55b08a6141f33e168c4a6c22f",
-"assets/fonts/MaterialIcons-Regular.ttf": "56d3ffdef7a25659eab6a68a3fbfaf16",
-"assets/NOTICES": "53597e0b7f3e4bbe237939e3a037493c",
+"assets/FontManifest.json": "dc3d03800ccca4601324923c0b1d6d57",
+"assets/fonts/MaterialIcons-Regular.otf": "a68d2a28c526b3b070aefca4bac93d25",
+"assets/NOTICES": "2dc84e94957b471da8731684c45d086d",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "115e937bb829a890521f72d2e664b632",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "index.html": "cc5325e470a834507c616f57edc23cd2",
 "/": "cc5325e470a834507c616f57edc23cd2",
-"main.dart.js": "e2fcddde9e0c9c1d62174a0c05321092",
+"main.dart.js": "ccba5d8c3cac59bb12f2ccb6b961a19e",
 "manifest.json": "27e66ada17efaa41f1d8a7c3357daa02",
 "README.md": "797dd3699b9212ce8bd46d8c77b1a3de"
 };
@@ -87,8 +92,8 @@ const CORE = [
 self.addEventListener("install", (event) => {
   return event.waitUntil(
     caches.open(TEMP).then((cache) => {
-      // Provide a no-cache param to ensure the latest version is downloaded.
-      return cache.addAll(CORE.map((value) => new Request(value, {'cache': 'no-cache'})));
+      // Provide a 'reload' param to ensure the latest version is downloaded.
+      return cache.addAll(CORE.map((value) => new Request(value, {'cache': 'reload'})));
     })
   );
 });
@@ -171,7 +176,7 @@ self.addEventListener("fetch", (event) => {
         // Either respond with the cached resource, or perform a fetch and
         // lazily populate the cache. Ensure the resources are not cached
         // by the browser for longer than the service worker expects.
-        var modifiedRequest = new Request(event.request, {'cache': 'no-cache'});
+        var modifiedRequest = new Request(event.request, {'cache': 'reload'});
         return response || fetch(modifiedRequest).then((response) => {
           cache.put(event.request, response.clone());
           return response;
