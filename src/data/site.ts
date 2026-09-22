@@ -5,20 +5,20 @@
  */
 
 export const site = {
-  name: 'Your Name',
+  name: 'Yohan Sequeira',
   /** Sits under your name on the home page. One line, no period. */
   tagline: 'Researcher, builder, and science communicator',
   /** Used in the <title> of every page and in link previews. */
-  siteName: 'Your Name',
+  siteName: 'Yohan Sequeira',
   /** Fallback description for search engines and social cards. */
   description:
-    'Personal site of Your Name — research, open-source projects, science outreach, and art.',
+    'Personal site of Yohan Sequeira — research, open-source projects, science outreach, and other projects.',
   /** Shown on the home page and linked as mailto:. */
-  email: 'you@example.com',
+  email: 'yohans21@vt.edu',
   /** Optional: drop a PDF in public/ and point here. Set to null to hide. */
-  cv: '/cv.pdf',
+  cv: '/Yohan_Sequeira_Resume_2026.pdf',
   /** Optional: a portrait in src/assets/. Set to null for a text-only header. */
-  location: 'City, Country',
+  location: null
 } as const;
 
 /**
@@ -41,17 +41,17 @@ export const socials: SocialLink[] = [
     label: 'LinkedIn',
     url: 'https://www.linkedin.com/in/YOUR-HANDLE',
     icon: 'linkedin',
-    placeholder: true,
+    placeholder: false,
   },
   {
     label: 'GitHub',
-    url: 'https://github.com/YOUR-HANDLE',
+    url: 'https://github.com/yohancsx',
     icon: 'github',
     placeholder: true,
   },
   {
     label: 'Google Scholar',
-    url: 'https://scholar.google.com/citations?user=YOUR-ID',
+    url: 'https://scholar.google.com/citations?user=hv8kqt8AAAAJ&hl=en',
     icon: 'scholar',
     placeholder: true,
   },
@@ -59,25 +59,25 @@ export const socials: SocialLink[] = [
     label: 'ORCID',
     url: 'https://orcid.org/0000-0000-0000-0000',
     icon: 'orcid',
-    placeholder: true,
+    placeholder: false,
   },
   {
     label: 'Instagram',
     url: 'https://www.instagram.com/YOUR-HANDLE',
     icon: 'instagram',
-    placeholder: true,
+    placeholder: false,
   },
   {
     label: 'TikTok',
     url: 'https://www.tiktok.com/@YOUR-HANDLE',
     icon: 'tiktok',
-    placeholder: true,
+    placeholder: false,
   },
   {
     label: 'Letterboxd',
     url: 'https://letterboxd.com/YOUR-HANDLE',
     icon: 'letterboxd',
-    placeholder: true,
+    placeholder: false,
   },
 ];
 
