@@ -1,9 +1,10 @@
 name: Deploy to GitHub Pages
 
 on:
-  # Every push to main rebuilds and publishes the site.
+  # Every push to the default branch rebuilds and publishes the site.
+  # Both names are listed so this keeps working if the branch is ever renamed.
   push:
-    branches: [main]
+    branches: [main, master]
   # Lets you re-run a deploy by hand from the Actions tab.
   workflow_dispatch:
 
