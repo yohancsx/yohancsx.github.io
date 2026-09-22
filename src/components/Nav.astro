@@ -1,0 +1,97 @@
+---
+import { nav, site } from "../data/site";
+
+/** Normalise so "/research" and "/research/" both match. */
+const current = Astro.url.pathname.replace(/\/+$/, "") || "/";
+const isActive = (href: string) => (href.replace(/\/+$/, "") || "/") === current;
+---
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="/">{site.name}</a>
+
+    <nav aria-label="Main">
+      <ul>
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.href} aria-current={isActive(item.href) ? "page" : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  header {
+    border-bottom: 1px solid var(--border);
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(8px);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 1.5rem;
+    padding-block: 0.9rem;
+  }
+
+  .brand {
+    font-family: var(--font-serif);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+
+  .brand:hover {
+    color: var(--accent-text);
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav a {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 0.3rem 0.65rem;
+    border-radius: 999px;
+    transition: color 0.15s, background 0.15s;
+  }
+
+  nav a:hover {
+    color: var(--text);
+    background: var(--bg-sunken);
+  }
+
+  nav a[aria-current="page"] {
+    color: var(--accent-text);
+    background: var(--accent-soft);
+    font-weight: 500;
+  }
+
+  @media (max-width: 460px) {
+    .bar {
+      justify-content: center;
+    }
+  }
+</style>

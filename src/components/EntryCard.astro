@@ -1,0 +1,116 @@
+---
+import { Image } from "astro:assets";
+import Icon from "./Icon.astro";
+
+export type Action = {
+  label: string;
+  url: string;
+  icon:
+    | "pdf"
+    | "slides"
+    | "link"
+    | "download"
+    | "code"
+    | "mail"
+    | "model"
+    | "zip"
+    | "arrow";
+  /** Renders in the accent colour. Use for the single most important link. */
+  primary?: boolean;
+};
+
+interface Props {
+  title: string;
+  /** Small dotted-separated line under the title: year, venue, audience... */
+  meta?: (string | undefined)[];
+  /** Author list, for research entries. */
+  authors?: string;
+  image?: ImageMetadata;
+  imageAlt?: string;
+  actions?: Action[];
+  /** Tags or tech, rendered as small pills under the body. */
+  pills?: string[];
+  featured?: boolean;
+}
+
+const {
+  title,
+  meta = [],
+  authors,
+  image,
+  imageAlt = "",
+  actions = [],
+  pills = [],
+  featured = false,
+} = Astro.props;
+
+const metaItems = meta.filter((m): m is string => Boolean(m));
+const isExternal = (url: string) => /^https?:\/\//.test(url);
+---
+
+<article class:list={["entry", !image && "entry--no-image"]}>
+  {
+    image && (
+      <div class="entry__media">
+        {/* widths + sizes let Astro emit a responsive srcset at build time */}
+        <Image
+          src={image}
+          alt={imageAlt}
+          widths={[320, 640, 960]}
+          sizes="(max-width: 720px) 92vw, 320px"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    )
+  }
+
+  <div>
+    <h3 class="entry__title">{title}</h3>
+
+    {
+      (metaItems.length > 0 || featured) && (
+        <div class="entry__meta">
+          {featured && <span class="badge-featured">Featured</span>}
+          {metaItems.map((m) => (
+            <span>{m}</span>
+          ))}
+        </div>
+      )
+    }
+
+    {authors && <p class="entry__authors">{authors}</p>}
+
+    <div class="entry__body">
+      <slot />
+    </div>
+
+    {
+      pills.length > 0 && (
+        <ul class="pills">
+          {pills.map((p) => (
+            <li class="pill">{p}</li>
+          ))}
+        </ul>
+      )
+    }
+
+    {
+      actions.length > 0 && (
+        <div class="btn-row">
+          {actions.map((a) => (
+            <a
+              class:list={["btn", a.primary && "btn--primary"]}
+              href={a.url}
+              target={isExternal(a.url) ? "_blank" : undefined}
+              rel={isExternal(a.url) ? "noopener noreferrer" : undefined}
+            >
+              <Icon name={a.icon} />
+              {a.label}
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</article>

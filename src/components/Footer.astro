@@ -1,0 +1,65 @@
+---
+import SocialLinks from "./SocialLinks.astro";
+import { site } from "../data/site";
+
+const year = new Date().getFullYear();
+---
+
+<footer>
+  <div class="wrap inner">
+    <div>
+      <p class="name">{site.name}</p>
+      <p class="meta">
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+        {site.location && <span> &middot; {site.location}</span>}
+      </p>
+    </div>
+
+    <SocialLinks />
+  </div>
+
+  <div class="wrap credit">
+    <p>&copy; {year} {site.name}</p>
+    <p>Built with Astro, hosted on GitHub Pages.</p>
+  </div>
+</footer>
+
+<style>
+  footer {
+    border-top: 1px solid var(--border);
+    background: var(--bg-sunken);
+    padding-block: 2.25rem 1.75rem;
+  }
+
+  .inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+  }
+
+  .name {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 1.05rem;
+  }
+
+  .meta {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-top: 0.15rem;
+  }
+
+  .credit {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-top: 1.75rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.8125rem;
+    color: var(--text-faint);
+  }
+</style>

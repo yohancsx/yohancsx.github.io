@@ -1,0 +1,15 @@
+---
+interface Props {
+  /** The content folder to add files to, e.g. "src/content/research". */
+  folder: string;
+}
+
+const { folder } = Astro.props;
+---
+
+<div class="empty">
+  <p>Nothing here yet.</p>
+  <p style="margin-top:.5rem;font-size:.9rem">
+    Add a Markdown file to <code>{folder}/</code> and it will appear on this page.
+  </p>
+</div>

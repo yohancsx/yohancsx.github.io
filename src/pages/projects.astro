@@ -1,0 +1,67 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import EntryCard from "../components/EntryCard.astro";
+import type { Action } from "../components/EntryCard.astro";
+import EmptyState from "../components/EmptyState.astro";
+
+const entries = (await getCollection("projects", ({ data }) => data.published))
+  .sort((a, b) => {
+    if (a.data.featured !== b.data.featured) return a.data.featured ? -1 : 1;
+    return b.data.year - a.data.year;
+  });
+
+const items = await Promise.all(
+  entries.map(async (entry) => {
+    const { Content } = await render(entry);
+    const actions: Action[] = [];
+
+    if (entry.data.url)
+      actions.push({
+        label: "Live",
+        url: entry.data.url,
+        icon: "link",
+        primary: true,
+      });
+    if (entry.data.repo)
+      actions.push({ label: "Source", url: entry.data.repo, icon: "code" });
+    for (const l of entry.data.links)
+      actions.push({ label: l.label, url: l.url, icon: "link" });
+
+    return { entry, Content, actions };
+  }),
+);
+---
+
+<BaseLayout
+  title="Projects"
+  description="Open-source and technical projects outside of formal research."
+>
+  <PageHeader
+    title="Projects"
+    intro="Technical work outside the lab — open-source tools, side projects, and things I built because they needed to exist."
+  />
+
+  {
+    items.length === 0 ? (
+      <EmptyState folder="src/content/projects" />
+    ) : (
+      <div class="entries">
+        {items.map(({ entry, Content, actions }) => (
+          <EntryCard
+            title={entry.data.title}
+            meta={[String(entry.data.year)]}
+            image={entry.data.image}
+            imageAlt={entry.data.imageAlt ?? entry.data.title}
+            pills={entry.data.tech}
+            actions={actions}
+            featured={entry.data.featured}
+          >
+            <Content />
+          </EntryCard>
+        ))}
+      </div>
+    )
+  }
+</BaseLayout>

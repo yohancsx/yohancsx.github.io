@@ -1,0 +1,68 @@
+---
+import { activeSocials, socials } from "../data/site";
+
+interface Props {
+  /** Show placeholder links too. Only useful while setting the site up. */
+  showPlaceholders?: boolean;
+  class?: string;
+}
+
+const { showPlaceholders = false, class: className = "" } = Astro.props;
+const links = showPlaceholders ? socials : activeSocials;
+---
+
+{
+  links.length > 0 && (
+    <ul class:list={["socials", className]}>
+      {links.map((s) => (
+        <li>
+          <a
+            href={s.url}
+            rel="me noopener noreferrer"
+            target="_blank"
+            data-placeholder={s.placeholder ? "true" : undefined}
+          >
+            {s.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+<style>
+  .socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  a {
+    display: inline-block;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--text-muted);
+    background: var(--bg-sunken);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: color 0.15s, border-color 0.15s, transform 0.15s;
+  }
+
+  a:hover {
+    color: var(--accent-text);
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  /* Visible only in dev, when showPlaceholders is on. */
+  a[data-placeholder] {
+    opacity: 0.55;
+    border-style: dashed;
+  }
+</style>

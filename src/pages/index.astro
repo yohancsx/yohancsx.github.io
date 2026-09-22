@@ -1,0 +1,177 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SocialLinks from "../components/SocialLinks.astro";
+import Icon from "../components/Icon.astro";
+import { site } from "../data/site";
+
+/**
+ * Pulls anything marked `featured: true` from research and projects so the
+ * home page always shows your best work without you maintaining a second list.
+ */
+const featuredResearch = await getCollection(
+  "research",
+  ({ data }) => data.published && data.featured,
+);
+const featuredProjects = await getCollection(
+  "projects",
+  ({ data }) => data.published && data.featured,
+);
+
+const highlights = [
+  ...featuredResearch.map((e) => ({
+    title: e.data.title,
+    year: e.data.year,
+    kind: "Research",
+    href: "/research/",
+  })),
+  ...featuredProjects.map((e) => ({
+    title: e.data.title,
+    year: e.data.year,
+    kind: "Project",
+    href: "/projects/",
+  })),
+].sort((a, b) => b.year - a.year);
+---
+
+<BaseLayout>
+  <section class="hero">
+    <p class="eyebrow">{site.tagline}</p>
+    <h1>{site.name}</h1>
+
+    <!-- ======================================================================
+         EDIT ME: your bio. Two or three short paragraphs is the sweet spot —
+         what you work on, what you're curious about, what you're looking for.
+         ====================================================================== -->
+    <div class="prose intro">
+      <p>
+        I'm a researcher working on <strong>[your field]</strong>. My work focuses
+        on [the one-sentence version of your research], and I care most about
+        [the problem that keeps you interested].
+      </p>
+      <p>
+        Outside the lab I build open-source tools, run science outreach
+        workshops for students and educators, and make things — some of which
+        end up on the hobbies page.
+      </p>
+      <p>
+        I'm currently [looking for / working at / studying]. If any of this
+        overlaps with what you're doing, I'd like to hear from you.
+      </p>
+    </div>
+
+    <div class="btn-row">
+      <a class="btn btn--primary" href={`mailto:${site.email}`}>
+        <Icon name="mail" />
+        Get in touch
+      </a>
+      {
+        site.cv && (
+          <a class="btn" href={site.cv}>
+            <Icon name="pdf" />
+            Curriculum vitae
+          </a>
+        )
+      }
+    </div>
+
+    <SocialLinks class="hero-socials" />
+  </section>
+
+  {
+    highlights.length > 0 && (
+      <section class="highlights">
+        <h2 class="section-label">Selected work</h2>
+        <ul>
+          {highlights.map((h) => (
+            <li>
+              <a href={h.href}>
+                <span class="kind">{h.kind}</span>
+                <span class="title">{h.title}</span>
+                <span class="year">{h.year}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+</BaseLayout>
+
+<style>
+  .hero {
+    max-width: var(--measure);
+  }
+
+  .eyebrow {
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+    margin-bottom: 0.6rem;
+  }
+
+  .intro {
+    margin-top: 1.5rem;
+    font-size: 1.075rem;
+  }
+
+  .hero-socials {
+    margin-top: 1.5rem;
+  }
+
+  .highlights {
+    margin-top: clamp(3rem, 8vw, 5rem);
+  }
+
+  .highlights ul {
+    list-style: none;
+    padding: 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .highlights a {
+    display: grid;
+    grid-template-columns: 5.5rem 1fr auto;
+    gap: 1rem;
+    align-items: baseline;
+    padding: 0.85rem 0.5rem;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--text);
+    transition: background 0.15s, padding-left 0.15s;
+  }
+
+  .highlights a:hover {
+    background: var(--bg-sunken);
+    padding-left: 0.9rem;
+  }
+
+  .kind {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-faint);
+  }
+
+  .title {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+  }
+
+  .year {
+    font-size: 0.8125rem;
+    color: var(--text-faint);
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (max-width: 560px) {
+    .highlights a {
+      grid-template-columns: 1fr auto;
+    }
+    .kind {
+      grid-column: 1 / -1;
+    }
+  }
+</style>
