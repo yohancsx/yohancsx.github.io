@@ -1,5 +1,6 @@
 ---
 import { nav, site } from "../data/site";
+import ThemeToggle from "./ThemeToggle.astro";
 
 /** Normalise so "/research" and "/research/" both match. */
 const current = Astro.url.pathname.replace(/\/+$/, "") || "/";
@@ -10,19 +11,23 @@ const isActive = (href: string) => (href.replace(/\/+$/, "") || "/") === current
   <div class="wrap bar">
     <a class="brand" href="/">{site.name}</a>
 
-    <nav aria-label="Main">
-      <ul>
-        {
-          nav.map((item) => (
-            <li>
-              <a href={item.href} aria-current={isActive(item.href) ? "page" : undefined}>
-                {item.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
+    <div class="bar-right">
+      <nav aria-label="Main">
+        <ul>
+          {
+            nav.map((item) => (
+              <li>
+                <a href={item.href} aria-current={isActive(item.href) ? "page" : undefined}>
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <ThemeToggle />
+    </div>
   </div>
 </header>
 
@@ -57,6 +62,13 @@ const isActive = (href: string) => (href.replace(/\/+$/, "") || "/") === current
 
   .brand:hover {
     color: var(--accent-text);
+  }
+
+  .bar-right {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
   }
 
   ul {

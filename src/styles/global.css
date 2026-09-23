@@ -1,5 +1,11 @@
 /* ---------------------------------------------------------------------------
    Design tokens. Change the accent and the whole site follows.
+
+   Dark is the default palette (this is the site's identity, not a media
+   query fallback). A visitor can switch to light via the header toggle;
+   that sets `data-theme="light"` on <html> and is persisted in
+   localStorage by the script in BaseLayout.astro. Nothing here reacts to
+   `prefers-color-scheme` — the toggle is the only way to change it.
    --------------------------------------------------------------------------- */
 :root {
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
@@ -7,19 +13,22 @@
   --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
-  --bg: #fdfcfa;
-  --bg-raised: #ffffff;
-  --bg-sunken: #f4f2ee;
-  --text: #1c1a17;
-  --text-muted: #6b6560;
-  --text-faint: #948f88;
-  --border: #e5e1da;
-  --border-strong: #d3cec5;
-  --accent: #8a4b2a;
-  --accent-text: #7a4224;
-  --accent-soft: #f6ece5;
-  --shadow: 0 1px 2px rgba(28, 26, 23, 0.04), 0 4px 12px rgba(28, 26, 23, 0.04);
-  --shadow-lift: 0 2px 4px rgba(28, 26, 23, 0.06), 0 12px 28px rgba(28, 26, 23, 0.08);
+  /* Dark (default) */
+  --bg: #10131a;
+  --bg-raised: #171b24;
+  --bg-sunken: #0b0d12;
+  --text: #e7e9ee;
+  --text-muted: #9aa3b2;
+  --text-faint: #6b7484;
+  --border: #262b36;
+  --border-strong: #37404f;
+  --accent: #4f8cff;
+  --accent-text: #6fa0ff;
+  --accent-soft: #16233d;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.25);
+  --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.35), 0 12px 28px rgba(0, 0, 0, 0.4);
+  --glow: 0 0 0 1px rgba(79, 140, 255, 0.45), 0 0 28px rgba(79, 140, 255, 0.16);
+  --pattern-dot: rgba(120, 160, 255, 0.13);
 
   --radius: 10px;
   --radius-lg: 16px;
@@ -28,22 +37,22 @@
   --gutter: clamp(1.25rem, 5vw, 3rem);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #14130f;
-    --bg-raised: #1d1b17;
-    --bg-sunken: #100f0c;
-    --text: #ece8e1;
-    --text-muted: #a19a90;
-    --text-faint: #7c766d;
-    --border: #2e2b25;
-    --border-strong: #403c34;
-    --accent: #d99b6c;
-    --accent-text: #e0a97f;
-    --accent-soft: #2a211a;
-    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.25);
-    --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.35), 0 12px 28px rgba(0, 0, 0, 0.4);
-  }
+:root[data-theme="light"] {
+  --bg: #f5f7fb;
+  --bg-raised: #ffffff;
+  --bg-sunken: #eaeef5;
+  --text: #171b24;
+  --text-muted: #55606f;
+  --text-faint: #7c8695;
+  --border: #dde3ec;
+  --border-strong: #c7d0dd;
+  --accent: #2f6fe0;
+  --accent-text: #2358b8;
+  --accent-soft: #e8f0fe;
+  --shadow: 0 1px 2px rgba(23, 27, 36, 0.05), 0 4px 12px rgba(23, 27, 36, 0.05);
+  --shadow-lift: 0 2px 4px rgba(23, 27, 36, 0.07), 0 12px 28px rgba(23, 27, 36, 0.09);
+  --glow: 0 0 0 1px rgba(47, 111, 224, 0.35), 0 0 24px rgba(47, 111, 224, 0.12);
+  --pattern-dot: rgba(47, 111, 224, 0.09);
 }
 
 /* ---------------------------------------------------------------------------
@@ -77,7 +86,11 @@ html {
 }
 
 body {
-  background: var(--bg);
+  background-color: var(--bg);
+  /* Dot-grid pattern — pure CSS, no image request. Subtle enough to read as
+     texture rather than noise; swaps color automatically with the theme. */
+  background-image: radial-gradient(var(--pattern-dot) 1px, transparent 1px);
+  background-size: 24px 24px;
   color: var(--text);
   font-family: var(--font-sans);
   font-size: 1.0625rem;
@@ -211,6 +224,17 @@ main {
   font-size: 1.075rem;
 }
 
+/* Coordinate-style section index, e.g. "[ 01 ]" before a page's <h1>. */
+.page-index {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.6em;
+  font-weight: 400;
+  color: var(--accent-text);
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
 /* ---------------------------------------------------------------------------
    Buttons & pills
    --------------------------------------------------------------------------- */
@@ -285,6 +309,7 @@ main {
 }
 
 .entry {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
   gap: clamp(1.25rem, 3vw, 2rem);
@@ -298,8 +323,39 @@ main {
 }
 
 .entry:hover {
-  box-shadow: var(--shadow-lift);
+  box-shadow: var(--glow);
   border-color: var(--border-strong);
+}
+
+/* Crosshair corner marks — a CAD/drafting flourish shared by entry and
+   hobby cards. Skipped on .art tiles so it never sits over a photo. */
+.entry::before,
+.entry::after,
+.hobby::before,
+.hobby::after {
+  content: "";
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border: 1.5px solid var(--accent);
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.entry::before,
+.hobby::before {
+  top: 10px;
+  left: 10px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.entry::after,
+.hobby::after {
+  bottom: 10px;
+  right: 10px;
+  border-left: none;
+  border-top: none;
 }
 
 /* Entries with no image give the full width to text. */
@@ -333,7 +389,8 @@ main {
 }
 
 .entry__meta {
-  font-size: 0.8125rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
   color: var(--text-faint);
   display: flex;
   flex-wrap: wrap;
@@ -418,7 +475,7 @@ main {
 }
 
 .art:hover {
-  box-shadow: var(--shadow-lift);
+  box-shadow: var(--glow);
   transform: translateY(-2px);
 }
 
@@ -455,6 +512,7 @@ main {
 }
 
 .hobby {
+  position: relative;
   background: var(--bg-raised);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);

@@ -143,5 +143,13 @@ update `site` in `astro.config.mjs` to match.
   file in `src/pages/`.
 - Colors, fonts, and spacing are CSS custom properties at the top of
   `src/styles/global.css`. Changing `--accent` restyles the whole site.
-- Dark mode follows the visitor's system setting; both palettes live in that
-  same token block.
+- **Dark is the default theme**, not a `prefers-color-scheme` fallback — it's
+  the site's identity. A visitor can switch to light via the toggle in the
+  header; that choice is saved in their browser (`localStorage`) and restored
+  on their next visit. The toggle's logic is a single inline script in
+  `src/layouts/BaseLayout.astro` — it's the only JavaScript the site ships,
+  and it runs before first paint so there's no flash of the wrong theme.
+  Both palettes live in the token block at the top of `global.css`, under
+  `:root` (dark) and `:root[data-theme="light"]`.
+- The dot-grid background (`body` in `global.css`) and the small crosshair
+  marks on card corners (`.entry`, `.hobby`) are pure CSS — no images.

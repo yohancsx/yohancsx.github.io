@@ -30,6 +30,52 @@ const ogImage = new URL(image, Astro.site ?? Astro.url.origin);
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+
+    <!--
+      Theme init — runs before anything paints, so a returning visitor who
+      chose light mode never sees a flash of dark first. `is:inline` keeps
+      Astro from deferring or bundling it; it must run synchronously, here,
+      in source order. This is the one script the site ships.
+    -->
+    <script is:inline>
+      (function () {
+        var KEY = "theme";
+        try {
+          if (localStorage.getItem(KEY) === "light") {
+            document.documentElement.setAttribute("data-theme", "light");
+          }
+        } catch (e) {
+          /* localStorage unavailable (private mode, etc.) — default to dark. */
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+          var btn = document.querySelector("[data-theme-toggle]");
+          if (btn) {
+            var isLight = document.documentElement.getAttribute("data-theme") === "light";
+            btn.setAttribute("aria-pressed", String(isLight));
+          }
+        });
+
+        document.addEventListener("click", function (e) {
+          var btn = e.target.closest("[data-theme-toggle]");
+          if (!btn) return;
+          var root = document.documentElement;
+          var goingLight = root.getAttribute("data-theme") !== "light";
+          if (goingLight) {
+            root.setAttribute("data-theme", "light");
+          } else {
+            root.removeAttribute("data-theme");
+          }
+          try {
+            localStorage.setItem(KEY, goingLight ? "light" : "dark");
+          } catch (e) {
+            /* Selection just won't persist across visits — still works this session. */
+          }
+          btn.setAttribute("aria-pressed", String(goingLight));
+        });
+      })();
+    </script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />

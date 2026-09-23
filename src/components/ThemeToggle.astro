@@ -1,0 +1,84 @@
+---
+/**
+ * Pure markup — no script here. The click handler and the flash-free init
+ * both live in one inline script in BaseLayout.astro's <head>, keyed off
+ * [data-theme-toggle]. This button just needs that attribute and the two
+ * icons; CSS below swaps which icon shows based on :root[data-theme].
+ */
+---
+
+<button
+  type="button"
+  class="theme-toggle"
+  data-theme-toggle
+  aria-label="Switch between dark and light theme"
+  aria-pressed="false"
+>
+  <svg
+    class="icon-moon"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.75"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"></path>
+  </svg>
+  <svg
+    class="icon-sun"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.75"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="4"></circle>
+    <path
+      d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+    ></path>
+  </svg>
+</button>
+
+<style>
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--bg-sunken);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .theme-toggle:hover {
+    color: var(--accent-text);
+    border-color: var(--accent);
+  }
+
+  .theme-toggle svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  /* Dark (default): show the moon. Light: show the sun. */
+  .icon-sun {
+    display: none;
+  }
+
+  :root[data-theme="light"] .theme-toggle .icon-moon {
+    display: none;
+  }
+
+  :root[data-theme="light"] .theme-toggle .icon-sun {
+    display: block;
+  }
+</style>
