@@ -7,7 +7,7 @@ export default defineConfig({
   // <username>.github.io, the site lives at the root and needs no `base`.
   // This value is only used to build absolute URLs for social previews
   // and the sitemap, so a wrong value here won't break local dev.
-  site: 'https://YOUR-USERNAME.github.io',
+  site: 'https://yohancsx.github.io',
 
   build: {
     // Emit `/research/index.html` so URLs stay clean without a server.
